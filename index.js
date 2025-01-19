@@ -23,7 +23,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
         console.log("📌 Processing started...");
 
         const audioPath = await extractAudio(videoPath, outputDir);
-        const { topics, content, transcriptFile } = await transcribeAudioWithGroq(audioPath);
+        const { topics, content, transcriptFile } = await transcribeAudioWithGroq(`${audioPath}.mp3`);
         const videoSegments = await segmentVideoBasedOnTimestamps(videoPath, topics, outputDir);
     
         res.json({ message: "✅ Video segmented successfully!", segments: videoSegments, topics, content, transcript: transcriptFile });
