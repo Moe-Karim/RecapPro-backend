@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-
+import fetch from "node-fetch";
 const app = express();
 const PORT = 3000;
 const upload = multer({ dest: "uploads/" });
