@@ -1,6 +1,7 @@
 {
   "name": "recappro-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "RecapPro backend",
   "main": "index.js",
   "scripts": {
