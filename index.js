@@ -10,10 +10,12 @@ const PORT = 3000;
 const upload = multer({ dest: "uploads/" });
 
 app.post("/upload", upload.single("video"), async (req, res) => {
-    if (!req.file) return res.status(400).json({ error: "No video file uploaded." });
+    if (!req.file) return res.status(400).json({ error: "❌ No video file uploaded." });
 
     const videoPath = req.file.path;
-    console.log("Received video:", videoPath);
+    const outputDir = "processed/";
+
+    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
 
     res.json({ message: "Video uploaded successfully", videoPath });
   });
