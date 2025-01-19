@@ -1,6 +1,10 @@
 import express from "express";
 import multer from "multer";
-import fetch from "node-fetch";
+import fs from "fs";
+import path from "path";
+import { extractAudio, segmentVideoBasedOnTimestamps } from "../RecapPro-video-processing/index.js";
+import { transcribeAudioWithGroq } from "../RecapPro-ai/index.js";
+
 const app = express();
 const PORT = 3000;
 const upload = multer({ dest: "uploads/" });
