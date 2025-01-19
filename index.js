@@ -23,11 +23,17 @@ app.post("/upload", upload.single("video"), async (req, res) => {
         console.log("📌 Processing started...");
 
         const audioPath = await extractAudio(videoPath, outputDir);
-        const { topics, content, transcriptFile } = await transcribeAudioWithGroq(`${audioPath}.mp3`);
-        const videoSegments = await segmentVideoBasedOnTimestamps(videoPath, topics, outputDir);
+        const Text = await transcribeAudioWithGroq(`${audioPath}.mp3`);
+        const topics= Text.Topic;
+        const srt = Text.Content;
+        const videoSegments = await segmentVideoBasedOnTimestamps(videoPath, audioPath,topics, outputDir);
     
-        res.json({ message: "✅ Video segmented successfully!", segments: videoSegments, topics, content, transcript: transcriptFile });
-
+        res.json({
+            message: "Video segmented successfully",
+            segments: videoSegments || [], // Ensure it's always an array
+            topic: topics || [],
+            content: srt
+          });
       } catch (error) {
         console.error("❌ Processing error:", error);
         res.status(500).json({ error: "Error processing video." });
