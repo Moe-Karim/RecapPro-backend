@@ -17,9 +17,9 @@ app.post("/upload", upload.single("video"), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: "❌ No video file uploaded." });
 
     const videoPath = req.file.path;
-    const outputDir = "processed/";
+    const outputDir = `processed/${currentDate}/`;
 
-    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
+    fs.mkdirSync(outputDir);
 
     try {
         console.log("📌 Processing started...");
@@ -48,3 +48,4 @@ app.post("/upload", upload.single("video"), async (req, res) => {
   });
 
   app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
