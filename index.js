@@ -28,6 +28,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
         const srt = Text.Content;
         const videoSegments = await segmentVideoBasedOnTimestamps(videoPath, audioPath,topics, outputDir);
         const gaps = await detectSilence(audioPath);
+        const gapSrt = await fillGapWithAI(srt,gaps,outputDir);
 
         res.json({
             message: "Video segmented successfully",
