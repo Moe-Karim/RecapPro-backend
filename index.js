@@ -4,7 +4,9 @@ import fs from "fs";
 import path from "path";
 import { extractAudio, segmentVideoBasedOnTimestamps, detectSilence, burnSubtitles} from "../RecapPro-video-processing/index.js";
 import { transcribeAudioWithGroq, fillGapWithAI} from "../RecapPro-ai/index.js";
+
 export const currentDate = new Date().toISOString().replace(/[:.-]/g, '');
+export const randomNb = Math.floor(Math.random() * 1000);
 
 const app = express();
 const PORT = 3000;
