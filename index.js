@@ -10,7 +10,6 @@ const PORT = 3000;
 const upload = multer({ dest: "uploads/" });
 
 app.use(express.json());
-
 app.post("/upload", upload.single("video"), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: "❌ No video file uploaded." });
 
@@ -33,9 +32,11 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 
         res.json({
             message: "Video segmented successfully",
-            segments: videoSegments || [], // Ensure it's always an array
+            segments: videoSegments || [],
             topic: topics || [],
-            content: srt
+            content: srt,
+            subtitles: subtitled
+
           });
       } catch (error) {
         console.error("❌ Processing error:", error);
