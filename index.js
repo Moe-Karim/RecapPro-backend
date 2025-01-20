@@ -49,3 +49,5 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 
   app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 
+  const processedPath = path.resolve('processed');
+  app.use('/processed', express.static(processedPath));
