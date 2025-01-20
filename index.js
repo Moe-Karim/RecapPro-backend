@@ -19,8 +19,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
     const videoPath = req.file.path;
     const outputDir = `processed/${currentDate}/`;
 
-    fs.mkdirSync(outputDir);
-
+    fs.mkdirSync('processed', { recursive: true });
     try {
         console.log("📌 Processing started...");
 
