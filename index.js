@@ -31,7 +31,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
         const videoSegments = await segmentVideoBasedOnTimestamps(videoPath, audioPath,topics, outputDir);
         const gaps = await detectSilence(audioPath);
         const gapSrt = await fillGapWithAI(srt,gaps,outputDir);
-        const subtitled = await burnSubtitles(videoPath, gapSrt, `${audioPath}.mp3`, `${outputDir}Recap.mp4`)
+        const subtitled = await burnSubtitles(videoPath, gapSrt, `${audioPath}.mp3`, `${outputDir}Recap_${currentDate}_${randomNb}.mp4`)
 
         res.json({
             message: "Video segmented successfully",
