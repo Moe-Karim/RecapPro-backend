@@ -3,7 +3,7 @@ import multer from "multer";
 import fs from "fs";
 import path from "path";
 import { extractAudio, segmentVideoBasedOnTimestamps, detectSilence} from "../RecapPro-video-processing/index.js";
-import { transcribeAudioWithGroq } from "../RecapPro-ai/index.js";
+import { transcribeAudioWithGroq, fillGapWithAI} from "../RecapPro-ai/index.js";
 
 const app = express();
 const PORT = 3000;
