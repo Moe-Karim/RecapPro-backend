@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use("/transcribe", transcribeRoute);
 app.use("/segment", segmentRoute);
+app.use("/gap-fill", gapFillRoute);
 
 const processedPath = path.resolve('processed');
 fs.mkdirSync(processedPath, { recursive: true });
