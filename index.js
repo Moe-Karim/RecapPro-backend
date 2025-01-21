@@ -11,7 +11,7 @@ const PORT = 3000;
 app.use(express.json());
 
 app.use("/transcribe", transcribeRoute);
-
+app.use("/segment", segmentRoute);
 
 const processedPath = path.resolve('processed');
 fs.mkdirSync(processedPath, { recursive: true });
