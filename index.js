@@ -6,8 +6,9 @@ import fs from "fs";
 import path from "path";
 import connectToDb from "./db/connection.js";
 import { login, register } from "./modules/auth/auth-controller.js";
+
 const app = express();
-const PORT = 3000;
+const PORT = process.env.SERVER_PORT;
 
 app.use(express.json());
 
