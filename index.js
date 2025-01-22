@@ -5,26 +5,19 @@ import gapFillRoute from "./routes/gapFill.js";
 import fs from "fs";
 import path from "path";
 import connectToDb from "./db/connection.js";
-import {
-  login,
-  register,
-  changePassword,
-  deleteUser,
-} from "./modules/auth/auth-controller.js";
-import cors from "cors";
+import {init,registerRoutes} from "./config/init.js";
+import authRouter from "./modules/auth/auth-routes.js";
+import  videosRouter from "./modules/videos/video-routes.js";
 
 const app = express();
 const PORT = process.env.SERVER_PORT;
 
-app.use(express.json());
-app.use(cors({ origin: "*" }));
 app.use("/transcribe", transcribeRoute);
 app.use("/segment", segmentRoute);
 app.use("/gap-fill", gapFillRoute);
-app.use("/login", login);
-app.use("/register", register);
-app.use("/change", changePassword);
-app.use("/delete", deleteUser);
+
+init(app);
+registerRoutes(app, authRouter, videosRouter);
 
 const processedPath = path.resolve("processed");
 fs.mkdirSync(processedPath, { recursive: true });
