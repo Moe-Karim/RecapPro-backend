@@ -105,3 +105,27 @@ export const deleteVideo = async (req, res) => {
       .json({ message: "An error occurred while deleting the video" });
   }
 };
+
+export const deleteAllVideos = async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.videos = [];
+    await user.save();
+
+    return res.status(200).json({ message: "All videos deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting all videos:", error);
+    return res
+      .status(500)
+      .json({ message: "An error occurred while deleting videos" });
+  }
+};
