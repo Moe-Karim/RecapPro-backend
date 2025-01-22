@@ -5,7 +5,7 @@ import gapFillRoute from "./routes/gapFill.js";
 import fs from "fs";
 import path from "path";
 import connectToDb from "./db/connection.js";
-import { login, register, changePassword } from "./modules/auth/auth-controller.js";
+import { login, register, changePassword, deleteUser } from "./modules/auth/auth-controller.js";
 import cors from "cors";
 
 const app = express();
@@ -19,6 +19,8 @@ app.use("/gap-fill", gapFillRoute);
 app.use("/login", login);
 app.use("/register", register);
 app.use("/change", changePassword);
+app.use("/delete", deleteUser);
+
 const processedPath = path.resolve("processed");
 fs.mkdirSync(processedPath, { recursive: true });
 app.use("/processed", express.static(processedPath));
