@@ -5,7 +5,12 @@ import gapFillRoute from "./routes/gapFill.js";
 import fs from "fs";
 import path from "path";
 import connectToDb from "./db/connection.js";
-import { login, register, changePassword, deleteUser } from "./modules/auth/auth-controller.js";
+import {
+  login,
+  register,
+  changePassword,
+  deleteUser,
+} from "./modules/auth/auth-controller.js";
 import cors from "cors";
 
 const app = express();
