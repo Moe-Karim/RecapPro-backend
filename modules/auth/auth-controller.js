@@ -60,7 +60,8 @@ export const changePassword = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
+    console.log(currentPassword);
+    console.log(user.password);
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: "Incorrect current password" });
@@ -71,7 +72,7 @@ export const changePassword = async (req, res) => {
     user.password = hashedPassword;
     await user.save();
 
-    return res.status(200).json({ message: "Password updated successfully" });
+    return res.status(200).send({ message: "Password updated successfully" });
   } catch (error) {
     console.error("Error changing password:", error);
     return res
