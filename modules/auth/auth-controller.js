@@ -29,7 +29,6 @@ export const login = async (req, res) => {
   });
 };
 
-
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -49,13 +48,11 @@ export const register = async (req, res) => {
   }
 };
 
-
 export const changePassword = async (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
-  const {currentPassword, newPassword} = req.body;
+  const token = req.headers.authorization.split(" ")[1];
+  const { currentPassword, newPassword } = req.body;
 
   try {
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
     const user = await User.findById(userId).select("+password");
@@ -71,13 +68,36 @@ export const changePassword = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-
     user.password = hashedPassword;
     await user.save();
 
     return res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
     console.error("Error changing password:", error);
-    return res.status(500).json({ message: "An error occurred while updating password" });
+    return res
+      .status(500)
+      .json({ message: "An error occurred while updating password" });
+  }
+};
+
+
+export const deleteUser = async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    await user.deleteOne(); 
+
+    return res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    return res.status(500).json({ message: 'An error occurred while deleting the user' });
   }
 };
