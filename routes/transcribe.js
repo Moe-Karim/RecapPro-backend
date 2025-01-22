@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import fs from "fs";
 import { extractAudio } from "../../RecapPro-video-processing/index.js";
-import { transcribeAudioWithGroq } from "../../RecapPro-ai/index.js";
+import { transcribeAudioWithGroq } from "../../RecapPro-AI/index.js";
 
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
