@@ -58,7 +58,7 @@ router.post("/", authenticateUser, upload.single("video"), async (req, res) => {
     const user = await User.findById(req.user.id);
     if (user) {
       user.videos.push({
-        path: subtitled,
+        path: `http://192.168.1.107:3000/${subtitled}`,
         title: `Video with subtitles - ${Date.now()}`,
       });
       await user.save();
