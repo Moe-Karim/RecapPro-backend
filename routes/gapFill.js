@@ -9,7 +9,7 @@ import {
 import {
   transcribeAudioWithGroq,
   fillGapWithAI,
-} from "../../RecapPro-ai/index.js";
+} from "../../RecapPro-AI/index.js";
 import jwt from "jsonwebtoken";
 import { User } from "../db/models/user-model.js";
 
